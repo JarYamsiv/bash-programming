@@ -1,0 +1,103 @@
+#before coming here i've made some changes in .bashrc file
+#check it out especially the load-conda function
+
+#this is the bash loader from here every other custom bash files will be loaded
+
+# lazy af :P
+alias reload-bash=". ~/.bashrc"
+
+echo "Welcome!!"
+echo "type myhelp for help"
+function myhelp()
+{
+	echo "load-conda : to load anaconda"
+	echo "reload-bash : to run . ~/.bashrc"
+	echo "mybuild [args] : build project in current directory"
+	echo "log [args] : to make and view log files"
+}
+
+
+if [ -f ~/bashFiles/new_commands ]; then
+	 source ~/bashFiles/new_commands
+fi
+
+if [ -f ~/bashFiles/exports ]; then
+	source ~/bashFiles/exports
+fi
+
+#item is user defined
+#we can use "$1" ,"$2" ,... for first second ,... arguments respectivly
+#functions with 3 _ (ie, ___) are no longer in use(they are sued for learning pruposes)
+function ___echoer(){
+	for item_ in "$@";
+		do
+			echo "$item_";
+		done;
+}
+
+function mybuild()
+{
+	if [[ "$1" == "cpp-proj" || "$1" == "cpp-project" || "$1" == "cpp" ]]; then
+		echo "#include<iostream>
+int main()
+{
+	std::cout<<\"hellow world\\n\";
+	return 0;
+}
+		">>main.cpp
+		echo "
+all:
+	g++ main.cpp -o main
+		">>makefile
+	fi
+}
+
+function log()
+{
+	if [[ "$1" == "add" ]]; then
+		if [[ "$2" == "" ]]; then
+			echo "nothing found to add. needs a second argument"
+		else
+			echo "[ $(date +'%D %T') ] : " "${@:2}" >> log.txt
+		fi
+	elif [[ "$1" == "rem" ]]; then
+
+		if [[ -f ./log.txt ]]; then
+			rm log.txt
+		else
+			echo "no log files found"
+		fi
+		
+	elif [[ "$1" == "" ]]; then
+
+		if [[ -f ./log.txt ]]; then
+			echo "$(cat log.txt)"
+		else
+			echo "no log files found"
+		fi
+		
+	elif [[ "$1" == "e" ]]; then
+
+		if [[ -f ./log.txt ]]; then
+			vim log.txt
+		else
+			echo "no log files found"
+		fi
+
+	else
+		echo "usage:-"
+		echo "mylog add (string to add)"
+		echo "	to add the string to the log file in this directory"
+		echo "mylog view"
+		echo "	to view the log file"
+		echo "mylog rem"
+		echo "	to remove the log file"
+	fi
+}
+
+#setting prompt style
+PS1="[\[\e[31m\]\W\[\e[m\]]\\$ "
+
+#================THINGS I FOUND FROM INTERNET=============================
+#		use echo "$(cat filename.txt)" to print contents of a file
+#		printf '%b\n' "$(cat my_file.txt)" also works but you will be able to add escape charecters 

@@ -1,4 +1,5 @@
 alias de-green="chmod -R a-x,o-w,+X"
 alias exec-permission="chmod u+x"
 alias minecraft="cd ~/Minecraft_1.13;./VLauncher_x64 &"
-
+alias pdf="xdg-open"
+alias et="emacs -nw"

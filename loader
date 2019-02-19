@@ -49,6 +49,25 @@ int main()
 all:
 	g++ main.cpp -o main
 		">>makefile
+
+	elif [[ "$1" == "c-proj" || "$1" == "c-project" || "$1" == "c" ]]; then
+		echo "#include<stdio.h>
+		int main()
+{	
+	std::cout<<\"hellow world\\n\";
+	return 0;
+}
+		">>main.c
+		echo "
+all:
+	gcc main.c -o main
+		">>makefile
+
+	else
+		echo "invalid arguments"
+		echo "for c project type mybuild c/c-proj/c-project"
+		echo "for c++ project type mybuild cpp/cpp-proj/cpp-project"
+
 	fi
 }
 

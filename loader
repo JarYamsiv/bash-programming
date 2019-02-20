@@ -14,6 +14,7 @@ function myhelp()
 	echo "reload-bash : to run . ~/.bashrc"
 	echo "mybuild [args] : build project in current directory"
 	echo "log [args] : to make and view log files"
+	echo "type budgie-reset to reset the budgie environment"
 }
 
 
